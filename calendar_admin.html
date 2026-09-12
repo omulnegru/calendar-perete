@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrare calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void: #05070C;
+    --glass: rgba(255,255,255,0.06);
+    --glass-strong: rgba(255,255,255,0.09);
+    --glass-border: rgba(255,255,255,0.14);
+    --line: rgba(255,255,255,0.10);
+    --text-1: rgba(255,255,255,0.95);
+    --text-2: rgba(255,255,255,0.62);
+    --text-3: rgba(255,255,255,0.38);
+    --accent: #F2A65A;
+    --danger: #E5786C;
+    --ok: #5EEAD4;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; min-height:100%;
+    background: var(--void);
+    color: var(--text-1);
+    font-family:'Inter', sans-serif;
+  }
+  #ambient{
+    position: fixed; inset:-10%; z-index:0; overflow:hidden; pointer-events:none;
+  }
+  #ambient .blob{ position:absolute; border-radius:50%; filter:blur(100px); opacity:0.45; }
+  #ambient .b1{ width:40vw; height:40vw; top:-10%; left:-10%; background:#2DD4BF; }
+  #ambient .b2{ width:34vw; height:34vw; bottom:-14%; right:-6%; background:#8B7CF6; }
+
+  #wrap{
+    position:relative; z-index:1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(24px,4vw,48px) 20px 80px;
+  }
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin: 0 0 6px 0;
+  }
+  .sub{ color: var(--text-2); margin: 0 0 28px 0; font-size:0.95rem; }
+
+  .glass{
+    background: var(--glass-strong);
+    border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    border-radius: 20px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 20px 40px rgba(0,0,0,0.35);
+  }
+
+  form{
+    padding: 22px;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 14px;
+    margin-bottom: 26px;
+  }
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .field label{
+    font-size:0.78rem;
+    color: var(--text-2);
+    font-weight:600;
+  }
+  input[type=date], input[type=time], input[type=text]{
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: var(--text-1);
+    padding: 10px 12px;
+    font-family:'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline:none;
+  }
+  input::-webkit-calendar-picker-indicator{ filter: invert(1); opacity:0.6; }
+  input[type=text]{ min-width: 220px; flex:1; }
+  .field.grow{ flex:1; min-width: 220px; }
+
+  button{
+    background: var(--accent);
+    color: #201405;
+    border:none;
+    border-radius: 10px;
+    padding: 0 22px;
+    font-weight:700;
+    font-size:0.95rem;
+    cursor:pointer;
+    align-self:flex-end;
+    height: 41px;
+    transition: filter .15s;
+  }
+  button:hover{ filter: brightness(1.08); }
+  button:disabled{ opacity:0.5; cursor:default; }
+
+  #status{
+    font-size:0.9rem;
+    padding: 0 4px;
+    margin-bottom: 18px;
+    min-height: 1.2em;
+  }
+  #status.ok{ color: var(--ok); }
+  #status.err{ color: var(--danger); }
+
+  #fallback{
+    display:none;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+    border-radius: 14px;
+    background: rgba(229,120,108,0.08);
+    border: 1px solid rgba(229,120,108,0.3);
+  }
+  #fallback p{ margin:0 0 10px 0; font-size:0.88rem; color: var(--text-2); }
+  #fallback textarea{
+    width:100%;
+    min-height: 120px;
+    background: rgba(0,0,0,0.3);
+    color: var(--text-1);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+  #fallback button{ margin-top:10px; height:36px; padding: 0 16px; }
+
+  .group{ margin-bottom: 22px; }
+  .group-date{
+    font-weight:700;
+    font-size: 0.85rem;
+    color: var(--text-2);
+    margin: 0 0 8px 4px;
+    letter-spacing:0.02em;
+  }
+  .task{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .task:last-child{ border-bottom:none; }
+  .task .tt{
+    font-variant-numeric: tabular-nums;
+    font-weight:600;
+    color: var(--text-2);
+    width: 52px;
+    flex-shrink:0;
+  }
+  .task .tx{ flex:1; }
+  .task .del{
+    background:none;
+    color: var(--text-3);
+    height:auto;
+    padding: 4px 8px;
+    font-weight:700;
+    font-size: 1rem;
+    align-self:auto;
+  }
+  .task .del:hover{ color: var(--danger); filter:none; }
+
+  #empty{ color: var(--text-3); font-style:italic; padding: 20px 4px; }
+  #loading{ color: var(--text-2); padding: 20px 4px; }
+</style>
+</head>
+<body>
+
+<div id="ambient"><div class="blob b1"></div><div class="blob b2"></div></div>
+
+<div id="wrap">
+  <h1>Administrare calendar</h1>
+  <p class="sub">Adaugă sarcini pentru orice zi din an. Tableta de perete preia automat modificările în câteva minute.</p>
+
+  <form class="glass" id="taskForm">
+    <div class="field">
+      <label for="fData">Data</label>
+      <input type="date" id="fData" required>
+    </div>
+    <div class="field">
+      <label for="fOra">Ora</label>
+      <input type="time" id="fOra" required>
+    </div>
+    <div class="field grow">
+      <label for="fSarcina">Sarcină</label>
+      <input type="text" id="fSarcina" placeholder="ex: Sport, Call cu clientul..." required>
+    </div>
+    <button type="submit" id="addBtn">Adaugă</button>
+  </form>
+
+  <div id="status"></div>
+
+  <div id="fallback" class="glass">
+    <p>Nu am putut salva automat în jsonbin. Copiază textul de mai jos și lipește-l manual în editorul de pe jsonbin.io (câmpul JSON al bin-ului), suprascriind tot conținutul curent.</p>
+    <textarea id="fallbackText" readonly></textarea>
+    <button id="copyBtn">Copiază</button>
+  </div>
+
+  <div id="list" class="glass" style="padding: 8px 0;">
+    <div id="loading">Se încarcă...</div>
+  </div>
+</div>
+
+<script>
+  const JSONBIN_ID = "6aa5666bac6210605ac4e128";
+  const JSONBIN_KEY = "$2a$10$1mXmKUJZ0chI143MykPnsejEW.ZvMp3WUKBYiim.BP8zNPlAXDAXC";
+  const JSONBIN_READ_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}/latest`;
+  const JSONBIN_WRITE_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
+
+  let currentData = [];
+
+  const monthNames = ["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"];
+
+  function fmtDateKey(key){
+    const [y,m,d] = key.split("-").map(Number);
+    return d + " " + monthNames[m-1] + " " + y;
+  }
+
+  function setStatus(msg, kind){
+    const el = document.getElementById("status");
+    el.textContent = msg;
+    el.className = kind || "";
+  }
+
+  async function loadData(){
+    setStatus("");
+    try{
+      const res = await fetch(JSONBIN_READ_URL, {
+        cache: "no-store",
+        headers: { "X-Master-Key": JSONBIN_KEY }
+      });
+      const payload = await res.json();
+      currentData = payload.record;
+      if(!Array.isArray(currentData)) currentData = [];
+    }catch(err){
+      currentData = [];
+      setStatus("Nu am putut încărca datele curente din jsonbin.", "err");
+    }
+    renderList();
+  }
+
+  function renderList(){
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    if(currentData.length === 0){
+      list.innerHTML = '<div id="empty">Nicio sarcină adăugată încă.</div>';
+      return;
+    }
+
+    // grupeaza pe data, sorteaza cronologic
+    const byDate = {};
+    currentData.forEach((item, idx) => {
+      const key = String(item.data).trim();
+      if(!byDate[key]) byDate[key] = [];
+      byDate[key].push({...item, _idx: idx});
+    });
+
+    const sortedKeys = Object.keys(byDate).sort();
+
+    sortedKeys.forEach(key => {
+      const group = document.createElement("div");
+      group.className = "group";
+      const heading = document.createElement("div");
+      heading.className = "group-date";
+      heading.textContent = fmtDateKey(key);
+      group.appendChild(heading);
+
+      const groupTasks = byDate[key].slice().sort((a,b) => String(a.ora).localeCompare(String(b.ora)));
+
+      const box = document.createElement("div");
+      box.className = "glass";
+      box.style.padding = "4px 4px";
+
+      groupTasks.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "task";
+        row.innerHTML = `
+          <div class="tt">${item.ora}</div>
+          <div class="tx">${item.sarcina}</div>
+          <button class="del" title="Șterge">✕</button>
+        `;
+        row.querySelector(".del").addEventListener("click", () => deleteTask(item._idx));
+        box.appendChild(row);
+      });
+
+      group.appendChild(box);
+      list.appendChild(group);
+    });
+  }
+
+  async function saveData(newData){
+    try{
+      const res = await fetch(JSONBIN_WRITE_URL, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Master-Key": JSONBIN_KEY
+        },
+        body: JSON.stringify(newData)
+      });
+      if(res.ok){
+        currentData = newData;
+        return true;
+      }
+    }catch(err){ /* cade pe fallback mai jos */ }
+    return false;
+  }
+
+  function showFallback(newData){
+    document.getElementById("fallback").style.display = "block";
+    document.getElementById("fallbackText").value = JSON.stringify(newData, null, 2);
+  }
+
+  function hideFallback(){
+    document.getElementById("fallback").style.display = "none";
+  }
+
+  document.getElementById("taskForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = document.getElementById("fData").value;
+    const ora = document.getElementById("fOra").value;
+    const sarcina = document.getElementById("fSarcina").value.trim();
+    if(!data || !ora || !sarcina) return;
+
+    const addBtn = document.getElementById("addBtn");
+    addBtn.disabled = true;
+    setStatus("Se salvează...");
+
+    const newData = currentData.concat([{ data, ora, sarcina }]);
+    const success = await saveData(newData);
+
+    addBtn.disabled = false;
+
+    if(success){
+      setStatus("Adăugat cu succes.", "ok");
+      hideFallback();
+      document.getElementById("fSarcina").value = "";
+      renderList();
+    } else {
+      setStatus("Nu am putut salva automat — vezi mai jos.", "err");
+      showFallback(newData);
+    }
+  });
+
+  async function deleteTask(idx){
+    const newData = currentData.filter((_, i) => i !== idx);
+    setStatus("Se șterge...");
+    const success = await saveData(newData);
+    if(success){
+      setStatus("Șters.", "ok");
+      hideFallback();
+      renderList();
+    } else {
+      setStatus("Nu am putut salva automat — vezi mai jos.", "err");
+      showFallback(newData);
+    }
+  }
+
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    const ta = document.getElementById("fallbackText");
+    ta.select();
+    document.execCommand("copy");
+    setStatus("Copiat în clipboard.", "ok");
+  });
+
+  // data implicita in formular: azi
+  const today = new Date();
+  document.getElementById("fData").value = today.toISOString().slice(0,10);
+
+  loadData();
+</script>
+
+</body>
+</html>
