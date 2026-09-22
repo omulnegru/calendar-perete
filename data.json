@@ -1,41 +1,281 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "data": "2026-09-29",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-09-26",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-09-25",
+      "ora": "17:25",
+      "sarcina": "SEDINTA CU PARINTII"
+    },
+    {
+      "data": "2026-10-03",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-10-10",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-10-17",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-10-24",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-10-31",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-11-14",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-11-07",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-11-21",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-11-28",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-12-05",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-12-12",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-12-19",
+      "ora": "11:30",
+      "sarcina": "MATEMANIA"
+    },
+    {
+      "data": "2026-10-06",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-10-13",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-10-20",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-10-27",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-11-03",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-11-10",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-11-17",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-11-24",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-12-01",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-12-08",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-12-15",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-12-22",
+      "ora": "19:00",
+      "sarcina": "ENGLEZA"
+    }
+  ],
   "orar": {
     "1": [
-      {"ora":"12:30 - 13:20", "materie":"Matematică", "prof":"Zaharia Elena"},
-      {"ora":"13:30 - 14:20", "materie":"Opțional Spaniolă", "prof":"Gavrila Adelina"},
-      {"ora":"14:30 - 15:20", "materie":"Dirigenție", "prof":"Ionescu Ionela"},
-      {"ora":"15:30 - 16:20", "materie":"Matematică", "prof":"Zaharia Elena"},
-      {"ora":"16:30 - 17:20", "materie":"Geografie", "prof":"Lazăr Iancu"}
+      {
+        "ora": "12:30 - 13:20",
+        "materie": "Religie",
+        "prof": ""
+      },
+      {
+        "ora": "13:30 - 14:20",
+        "materie": "Tehnologie",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
+        "materie": "Ed. Fizica",
+        "prof": ""
+      },
+      {
+        "ora": "15:30 - 16:20",
+        "materie": "Optional Spaniola",
+        "prof": ""
+      },
+      {
+        "ora": "16:30 - 17:20",
+        "materie": "Tic",
+        "prof": ""
+      },
+      {
+        "ora": "17:30 - 18:20",
+        "materie": "Ed. Muzicala",
+        "prof": ""
+      }
     ],
     "2": [
-      {"ora":"12:30 - 13:20", "materie":"Matematică", "prof":"Zaharia Elena"},
-      {"ora":"13:30 - 14:20", "materie":"Ed. Fizică", "prof":"Ilie Sebastian"},
-      {"ora":"14:30 - 15:20", "materie":"Română", "prof":"Ionescu Ionela"},
-      {"ora":"15:30 - 16:20", "materie":"Istorie", "prof":"Marin Cristina"},
-      {"ora":"16:30 - 17:20", "materie":"TIC", "prof":"Chiriță Nicoleta"},
-      {"ora":"17:30 - 18:20", "materie":"Engleză", "prof":"Linca Sorina"}
+      {
+        "ora": "13:30 - 14:20",
+        "materie": "Romana",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
+        "materie": "Matematica",
+        "prof": ""
+      },
+      {
+        "ora": "15:30 - 16:20",
+        "materie": "Engleza",
+        "prof": ""
+      },
+      {
+        "ora": "16:30 - 17:20",
+        "materie": "Istorie",
+        "prof": ""
+      },
+      {
+        "ora": "17:30 - 18:20",
+        "materie": "Ed. Fizica",
+        "prof": ""
+      }
     ],
     "3": [
-      {"ora":"13:30 - 14:20", "materie":"Educație Socială", "prof":"Pîrvulescu Oana"},
-      {"ora":"14:30 - 15:20", "materie":"Română", "prof":"Ionescu Ionela"},
-      {"ora":"15:30 - 16:20", "materie":"Engleză", "prof":"Linca Sorina"},
-      {"ora":"16:30 - 17:20", "materie":"Tehnologie", "prof":"Andrei Simona"},
-      {"ora":"17:30 - 18:20", "materie":"Ed. Muzicală", "prof":"Tănase Ingrid"}
+      {
+        "ora": "12:30 - 13:20",
+        "materie": "Matematica",
+        "prof": ""
+      },
+      {
+        "ora": "13:30 - 14:20",
+        "materie": "Engleza",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
+        "materie": "Spaniola",
+        "prof": ""
+      },
+      {
+        "ora": "15:30 - 16:20",
+        "materie": "Ed. Plastica",
+        "prof": ""
+      },
+      {
+        "ora": "16:30 - 17:20",
+        "materie": "Geografie",
+        "prof": ""
+      }
     ],
     "4": [
-      {"ora":"12:30 - 13:20", "materie":"Biologie", "prof":"Sin Raluca"},
-      {"ora":"13:30 - 14:20", "materie":"Spaniolă", "prof":"Gavrila Adelina"},
-      {"ora":"14:30 - 15:20", "materie":"Ed. Fizică", "prof":"Ilie Sebastian"},
-      {"ora":"15:30 - 16:20", "materie":"Istorie", "prof":"Marin Cristina"},
-      {"ora":"16:30 - 17:20", "materie":"Română", "prof":"Ionescu Ionela"}
+      {
+        "ora": "13:30 - 14:20",
+        "materie": "Spaniola",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
+        "materie": "Romana",
+        "prof": ""
+      },
+      {
+        "ora": "15:30 - 16:20",
+        "materie": "Matematica",
+        "prof": ""
+      },
+      {
+        "ora": "16:30 - 17:20",
+        "materie": "Dirigentie",
+        "prof": ""
+      },
+      {
+        "ora": "17:30 - 18:20",
+        "materie": "Istorie",
+        "prof": ""
+      }
     ],
     "5": [
-      {"ora":"12:30 - 13:20", "materie":"Matematică", "prof":"Zaharia Elena"},
-      {"ora":"13:30 - 14:20", "materie":"Română", "prof":"Ionescu Ionela"},
-      {"ora":"14:30 - 15:20", "materie":"Religie", "prof":"Vulpe Alina"},
-      {"ora":"15:30 - 16:20", "materie":"Spaniolă", "prof":"Gavrila Adelina"},
-      {"ora":"16:30 - 17:20", "materie":"Ed. Plastică", "prof":"Nițescu Mihaela"}
+      {
+        "ora": "12:30 - 13:20",
+        "materie": "Romana",
+        "prof": ""
+      },
+      {
+        "ora": "13:30 - 14:20",
+        "materie": "Biologie",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
+        "materie": "Matematica",
+        "prof": ""
+      },
+      {
+        "ora": "15:30 - 16:20",
+        "materie": "Educatie Sociala",
+        "prof": ""
+      },
+      {
+        "ora": "16:30 - 17:20",
+        "materie": "Romana",
+        "prof": ""
+      }
     ]
   },
   "vacante": []
