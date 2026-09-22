@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrare calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void: #05070C;
+    --glass: rgba(255,255,255,0.06);
+    --glass-strong: rgba(255,255,255,0.09);
+    --glass-border: rgba(255,255,255,0.14);
+    --line: rgba(255,255,255,0.10);
+    --text-1: rgba(255,255,255,0.95);
+    --text-2: rgba(255,255,255,0.62);
+    --text-3: rgba(255,255,255,0.38);
+    --accent: #F2A65A;
+    --danger: #E5786C;
+    --ok: #5EEAD4;
+    --vac: #8B7CF6;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; min-height:100%;
+    background: var(--void);
+    color: var(--text-1);
+    font-family:'Inter', sans-serif;
+  }
+  #ambient{
+    position: fixed; inset:-10%; z-index:0; overflow:hidden; pointer-events:none;
+  }
+  #ambient .blob{ position:absolute; border-radius:50%; filter:blur(100px); opacity:0.45; }
+  #ambient .b1{ width:40vw; height:40vw; top:-10%; left:-10%; background:#2DD4BF; }
+  #ambient .b2{ width:34vw; height:34vw; bottom:-14%; right:-6%; background:#8B7CF6; }
+
+  #wrap{
+    position:relative; z-index:1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(24px,4vw,48px) 20px 80px;
+  }
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin: 0 0 6px 0;
+  }
+  .sub{ color: var(--text-2); margin: 0 0 34px 0; font-size:0.95rem; }
+
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 1.4rem;
+    margin: 0 0 4px 0;
+  }
+  .section{ margin-bottom: 46px; }
+  .section-sub{ color: var(--text-2); font-size:0.85rem; margin: 0 0 16px 0; }
+
+  .glass{
+    background: var(--glass-strong);
+    border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    border-radius: 20px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 20px 40px rgba(0,0,0,0.35);
+  }
+
+  form{
+    padding: 22px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-end;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .field label{
+    font-size:0.78rem;
+    color: var(--text-2);
+    font-weight:600;
+  }
+  input[type=date], input[type=text], select{
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: var(--text-1);
+    padding: 10px 12px;
+    font-family:'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline:none;
+  }
+  select{ cursor:pointer; }
+  select option{ background: #14171f; color: var(--text-1); }
+  input::-webkit-calendar-picker-indicator{ filter: invert(1); opacity:0.6; }
+  input[type=text]{ min-width: 180px; flex:1; }
+  .field.grow{ flex:1; min-width: 180px; }
+  .hm-group{ display:flex; align-items:center; gap:6px; }
+  .hm-sep{ color: var(--text-2); font-size:0.85rem; }
+
+  button{
+    background: var(--accent);
+    color: #201405;
+    border:none;
+    border-radius: 10px;
+    padding: 0 22px;
+    font-weight:700;
+    font-size:0.95rem;
+    cursor:pointer;
+    height: 41px;
+    transition: filter .15s;
+  }
+  button:hover{ filter: brightness(1.08); }
+  button:disabled{ opacity:0.5; cursor:default; }
+
+  #status{
+    font-size:0.9rem;
+    padding: 0 4px;
+    margin-bottom: 18px;
+    min-height: 1.2em;
+    position: sticky;
+    top: 0;
+  }
+  #status.ok{ color: var(--ok); }
+  #status.err{ color: var(--danger); }
+
+  #fallback{
+    display:none;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+    border-radius: 14px;
+    background: rgba(229,120,108,0.08);
+    border: 1px solid rgba(229,120,108,0.3);
+  }
+  #fallback p{ margin:0 0 10px 0; font-size:0.88rem; color: var(--text-2); }
+  #fallback textarea{
+    width:100%;
+    min-height: 160px;
+    background: rgba(0,0,0,0.3);
+    color: var(--text-1);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+  #fallback button{ margin-top:10px; height:36px; padding: 0 16px; }
+
+  .group{ margin-bottom: 16px; }
+  .group-label{
+    font-weight:700;
+    font-size: 0.85rem;
+    color: var(--text-2);
+    margin: 0 0 8px 4px;
+    letter-spacing:0.02em;
+  }
+  .row{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .row:last-child{ border-bottom:none; }
+  .row .rt{
+    font-variant-numeric: tabular-nums;
+    font-weight:600;
+    color: var(--text-2);
+    flex-shrink:0;
+  }
+  .row .rx{ flex:1; }
+  .row .rx .sub2{ font-size:0.8rem; color: var(--text-2); font-weight:400; margin-top:2px; }
+  .row .del{
+    background:none;
+    color: var(--text-3);
+    height:auto;
+    padding: 4px 8px;
+    font-weight:700;
+    font-size: 1rem;
+  }
+  .row .del:hover{ color: var(--danger); filter:none; }
+
+  .list-box{ padding: 8px 0; margin-bottom: 8px; }
+  .empty-note{ color: var(--text-3); font-style:italic; padding: 16px 12px; }
+  .loading-note{ color: var(--text-2); padding: 16px 12px; }
+
+  .vac-badge{
+    display:inline-block;
+    font-size:0.78rem;
+    font-weight:700;
+    color: var(--vac);
+    background: rgba(139,124,246,0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div id="ambient"><div class="blob b1"></div><div class="blob b2"></div></div>
+
+<div id="wrap">
+  <h1>Administrare calendar</h1>
+  <p class="sub">Sarcini, orar școlar și vacanțe — totul se sincronizează automat pe tableta de perete.</p>
+
+  <div id="status"></div>
+
+  <div id="fallback" class="glass">
+    <p>Nu am putut salva automat pe GitHub. Copiază textul de mai jos și lipește-l manual în fișierul data.json din repository (editează-l direct pe github.com), suprascriind tot conținutul curent.</p>
+    <textarea id="fallbackText" readonly></textarea>
+    <button id="copyBtn">Copiază</button>
+  </div>
+
+  <!-- ===================== SARCINI ===================== -->
+  <div class="section">
+    <h2>Sarcini</h2>
+    <p class="section-sub">Adaugă sarcini pentru orice zi din an.</p>
+
+    <form class="glass" id="taskForm">
+      <div class="field">
+        <label for="fData">Data</label>
+        <input type="date" id="fData" required>
+      </div>
+      <div class="field">
+        <label>Ora</label>
+        <div class="hm-group">
+          <select id="fOraH"></select>
+          <select id="fOraM"></select>
+        </div>
+      </div>
+      <div class="field grow">
+        <label for="fSarcina">Sarcină</label>
+        <input type="text" id="fSarcina" placeholder="ex: Sport, Call cu clientul...">
+      </div>
+      <button type="submit" id="addTaskBtn">Adaugă</button>
+    </form>
+
+    <div id="taskList" class="glass list-box">
+      <div class="loading-note">Se încarcă...</div>
+    </div>
+  </div>
+
+  <!-- ===================== ORAR ===================== -->
+  <div class="section">
+    <h2>Orar școlar</h2>
+    <p class="section-sub">Se repetă automat în fiecare săptămână, pe termen nelimitat — nu trebuie retastat lunar sau anual.</p>
+
+    <form class="glass" id="orarForm">
+      <div class="field">
+        <label for="fZi">Zi</label>
+        <select id="fZi">
+          <option value="1">Luni</option>
+          <option value="2">Marți</option>
+          <option value="3">Miercuri</option>
+          <option value="4">Joi</option>
+          <option value="5">Vineri</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Interval</label>
+        <div class="hm-group">
+          <select id="fStartH"></select>
+          <select id="fStartM"></select>
+          <span class="hm-sep">–</span>
+          <select id="fEndH"></select>
+          <select id="fEndM"></select>
+        </div>
+      </div>
+      <div class="field grow">
+        <label for="fMaterie">Materie</label>
+        <input type="text" id="fMaterie" placeholder="ex: Matematică">
+      </div>
+      <div class="field grow">
+        <label for="fProf">Profesor</label>
+        <input type="text" id="fProf" placeholder="ex: Zaharia Elena">
+      </div>
+      <button type="submit" id="addOrarBtn">Adaugă</button>
+    </form>
+
+    <div id="orarList" class="glass list-box">
+      <div class="loading-note">Se încarcă...</div>
+    </div>
+  </div>
+
+  <!-- ===================== VACANTE ===================== -->
+  <div class="section">
+    <h2>Vacanțe</h2>
+    <p class="section-sub">Pe perioadele adăugate aici, butonul de Orar dispare automat de pe tabletă.</p>
+
+    <form class="glass" id="vacantaForm">
+      <div class="field">
+        <label for="fVacInceput">Început</label>
+        <input type="date" id="fVacInceput" required>
+      </div>
+      <div class="field">
+        <label for="fVacSfarsit">Sfârșit</label>
+        <input type="date" id="fVacSfarsit" required>
+      </div>
+      <div class="field grow">
+        <label for="fVacNume">Nume (opțional)</label>
+        <input type="text" id="fVacNume" placeholder="ex: Vacanța de iarnă">
+      </div>
+      <button type="submit" id="addVacBtn">Adaugă</button>
+    </form>
+
+    <div id="vacBadgeWrap"></div>
+    <div id="vacList" class="glass list-box">
+      <div class="loading-note">Se încarcă...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const GITHUB_OWNER = "omulnegru";
+  const GITHUB_REPO = "calendar-perete";
+  const GITHUB_PATH = "data.json";
+  const GITHUB_TOKEN = "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";
+  const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_PATH}`;
+  const GITHUB_RAW_URL = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/main/${GITHUB_PATH}`;
+
+  function utf8ToBase64(str){
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) => String.fromCharCode(parseInt(p1, 16))));
+  }
+
+  const monthNames = ["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"];
+  const weekdayLabels = {"1":"Luni","2":"Marți","3":"Miercuri","4":"Joi","5":"Vineri"};
+
+  // schema implicita folosita doar daca bin-ul e inca in formatul vechi (simplu array de sarcini)
+  const DEFAULT_ORAR = {
+    "1": [
+      {ora:"12:30 - 13:20", materie:"Matematică", prof:"Zaharia Elena"},
+      {ora:"13:30 - 14:20", materie:"Opțional Spaniolă", prof:"Gavrila Adelina"},
+      {ora:"14:30 - 15:20", materie:"Dirigenție", prof:"Ionescu Ionela"},
+      {ora:"15:30 - 16:20", materie:"Matematică", prof:"Zaharia Elena"},
+      {ora:"16:30 - 17:20", materie:"Geografie", prof:"Lazăr Iancu"}
+    ],
+    "2": [
+      {ora:"12:30 - 13:20", materie:"Matematică", prof:"Zaharia Elena"},
+      {ora:"13:30 - 14:20", materie:"Ed. Fizică", prof:"Ilie Sebastian"},
+      {ora:"14:30 - 15:20", materie:"Română", prof:"Ionescu Ionela"},
+      {ora:"15:30 - 16:20", materie:"Istorie", prof:"Marin Cristina"},
+      {ora:"16:30 - 17:20", materie:"TIC", prof:"Chiriță Nicoleta"},
+      {ora:"17:30 - 18:20", materie:"Engleză", prof:"Linca Sorina"}
+    ],
+    "3": [
+      {ora:"13:30 - 14:20", materie:"Educație Socială", prof:"Pîrvulescu Oana"},
+      {ora:"14:30 - 15:20", materie:"Română", prof:"Ionescu Ionela"},
+      {ora:"15:30 - 16:20", materie:"Engleză", prof:"Linca Sorina"},
+      {ora:"16:30 - 17:20", materie:"Tehnologie", prof:"Andrei Simona"},
+      {ora:"17:30 - 18:20", materie:"Ed. Muzicală", prof:"Tănase Ingrid"}
+    ],
+    "4": [
+      {ora:"12:30 - 13:20", materie:"Biologie", prof:"Sin Raluca"},
+      {ora:"13:30 - 14:20", materie:"Spaniolă", prof:"Gavrila Adelina"},
+      {ora:"14:30 - 15:20", materie:"Ed. Fizică", prof:"Ilie Sebastian"},
+      {ora:"15:30 - 16:20", materie:"Istorie", prof:"Marin Cristina"},
+      {ora:"16:30 - 17:20", materie:"Română", prof:"Ionescu Ionela"}
+    ],
+    "5": [
+      {ora:"12:30 - 13:20", materie:"Matematică", prof:"Zaharia Elena"},
+      {ora:"13:30 - 14:20", materie:"Română", prof:"Ionescu Ionela"},
+      {ora:"14:30 - 15:20", materie:"Religie", prof:"Vulpe Alina"},
+      {ora:"15:30 - 16:20", materie:"Spaniolă", prof:"Gavrila Adelina"},
+      {ora:"16:30 - 17:20", materie:"Ed. Plastică", prof:"Nițescu Mihaela"}
+    ]
+  };
+
+  let currentData = { tasks: [], orar: {}, vacante: [] };
+
+  function fmtDateKey(key){
+    const [y,m,d] = String(key).split("-").map(Number);
+    return d + " " + monthNames[m-1] + " " + y;
+  }
+
+  function setStatus(msg, kind){
+    const el = document.getElementById("status");
+    el.textContent = msg;
+    el.className = kind || "";
+  }
+
+  function todayKey(){
+    const d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+  }
+
+  // ---------- INCARCARE + MIGRARE ----------
+  async function loadData(){
+    setStatus("");
+    try{
+      const res = await fetch(GITHUB_RAW_URL + "?t=" + Date.now(), { cache: "no-store" });
+      const rec = await res.json();
+
+      if(Array.isArray(rec)){
+        // format vechi (doar sarcini) -> migram automat la noul format, o singura data
+        currentData = { tasks: rec, orar: DEFAULT_ORAR, vacante: [] };
+        setStatus("Am actualizat formatul datelor ca să includă și orarul/vacanțele.", "ok");
+        await saveData(currentData);
+      } else {
+        currentData = {
+          tasks: Array.isArray(rec.tasks) ? rec.tasks : [],
+          orar: (rec.orar && typeof rec.orar === "object") ? rec.orar : {},
+          vacante: Array.isArray(rec.vacante) ? rec.vacante : []
+        };
+      }
+    }catch(err){
+      currentData = { tasks: [], orar: DEFAULT_ORAR, vacante: [] };
+      setStatus("Nu am putut încărca datele curente din GitHub.", "err");
+    }
+    renderTasks();
+    renderOrar();
+    renderVacante();
+  }
+
+  async function saveData(newData){
+    try{
+      // GitHub cere sha-ul versiunii curente a fisierului inainte sa accepte o actualizare
+      const shaRes = await fetch(GITHUB_API_URL, {
+        cache: "no-store",
+        headers: {
+          "Authorization": "Bearer " + GITHUB_TOKEN,
+          "Accept": "application/vnd.github+json"
+        }
+      });
+      const shaJson = await shaRes.json();
+      const sha = shaJson.sha;
+
+      const res = await fetch(GITHUB_API_URL, {
+        method: "PUT",
+        headers: {
+          "Authorization": "Bearer " + GITHUB_TOKEN,
+          "Accept": "application/vnd.github+json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: "Actualizare calendar (" + new Date().toISOString() + ")",
+          content: utf8ToBase64(JSON.stringify(newData, null, 2)),
+          sha: sha,
+          branch: "main"
+        })
+      });
+      if(res.ok){
+        currentData = newData;
+        return true;
+      }
+    }catch(err){ /* cade pe fallback */ }
+    return false;
+  }
+
+  function showFallback(newData){
+    document.getElementById("fallback").style.display = "block";
+    document.getElementById("fallbackText").value = JSON.stringify(newData, null, 2);
+  }
+  function hideFallback(){
+    document.getElementById("fallback").style.display = "none";
+  }
+
+  async function commit(newData, okMsg){
+    setStatus("Se salvează...");
+    const success = await saveData(newData);
+    if(success){
+      setStatus(okMsg, "ok");
+      hideFallback();
+      renderTasks(); renderOrar(); renderVacante();
+    } else {
+      setStatus("Nu am putut salva automat — vezi mai jos.", "err");
+      showFallback(newData);
+    }
+    return success;
+  }
+
+  // ---------- SARCINI ----------
+  function renderTasks(){
+    const list = document.getElementById("taskList");
+    list.innerHTML = "";
+    const tasks = currentData.tasks || [];
+
+    if(tasks.length === 0){
+      list.innerHTML = '<div class="empty-note">Nicio sarcină adăugată încă.</div>';
+      return;
+    }
+
+    const byDate = {};
+    tasks.forEach((item, idx) => {
+      const key = String(item.data).trim();
+      if(!byDate[key]) byDate[key] = [];
+      byDate[key].push({...item, _idx: idx});
+    });
+
+    Object.keys(byDate).sort().forEach(key => {
+      const group = document.createElement("div");
+      group.className = "group";
+      const heading = document.createElement("div");
+      heading.className = "group-label";
+      heading.textContent = fmtDateKey(key);
+      group.appendChild(heading);
+
+      const box = document.createElement("div");
+      box.className = "glass";
+
+      byDate[key].sort((a,b) => String(a.ora).localeCompare(String(b.ora))).forEach(item => {
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
+          <div class="rt">${item.ora}</div>
+          <div class="rx">${item.sarcina}</div>
+          <button class="del" title="Șterge">✕</button>
+        `;
+        row.querySelector(".del").addEventListener("click", () => {
+          const newTasks = currentData.tasks.filter((_, i) => i !== item._idx);
+          commit({...currentData, tasks: newTasks}, "Șters.");
+        });
+        box.appendChild(row);
+      });
+
+      group.appendChild(box);
+      list.appendChild(group);
+    });
+  }
+
+  document.getElementById("taskForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = document.getElementById("fData").value;
+    const ora = document.getElementById("fOraH").value + ":" + document.getElementById("fOraM").value;
+    const sarcina = document.getElementById("fSarcina").value.trim();
+    if(!data || !ora || !sarcina) return;
+
+    const btn = document.getElementById("addTaskBtn");
+    btn.disabled = true;
+    const newTasks = (currentData.tasks || []).concat([{ data, ora, sarcina }]);
+    const ok = await commit({...currentData, tasks: newTasks}, "Adăugat cu succes.");
+    btn.disabled = false;
+    if(ok) document.getElementById("fSarcina").value = "";
+  });
+
+  // ---------- ORAR ----------
+  function renderOrar(){
+    const list = document.getElementById("orarList");
+    list.innerHTML = "";
+    const orar = currentData.orar || {};
+    const keys = ["1","2","3","4","5"].filter(k => (orar[k] || []).length > 0);
+
+    if(keys.length === 0){
+      list.innerHTML = '<div class="empty-note">Niciun orar adăugat încă.</div>';
+      return;
+    }
+
+    keys.forEach(zi => {
+      const group = document.createElement("div");
+      group.className = "group";
+      const heading = document.createElement("div");
+      heading.className = "group-label";
+      heading.textContent = weekdayLabels[zi];
+      group.appendChild(heading);
+
+      const box = document.createElement("div");
+      box.className = "glass";
+
+      orar[zi].slice().sort((a,b) => String(a.ora).localeCompare(String(b.ora))).forEach((period, sortedIdx) => {
+        // idx real in array (nu cel sortat) - il regasim dupa referinta
+        const realIdx = orar[zi].indexOf(period);
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
+          <div class="rt" style="width:auto; min-width:150px;">${period.ora}</div>
+          <div class="rx">${period.materie}<div class="sub2">${period.prof || ""}</div></div>
+          <button class="del" title="Șterge">✕</button>
+        `;
+        row.querySelector(".del").addEventListener("click", () => {
+          const newOrar = {...currentData.orar};
+          newOrar[zi] = newOrar[zi].filter((_, i) => i !== realIdx);
+          commit({...currentData, orar: newOrar}, "Șters din orar.");
+        });
+        box.appendChild(row);
+      });
+
+      group.appendChild(box);
+      list.appendChild(group);
+    });
+  }
+
+  document.getElementById("orarForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const zi = document.getElementById("fZi").value;
+    const ora = `${document.getElementById("fStartH").value}:${document.getElementById("fStartM").value} - ${document.getElementById("fEndH").value}:${document.getElementById("fEndM").value}`;
+    const materie = document.getElementById("fMaterie").value.trim();
+    const prof = document.getElementById("fProf").value.trim();
+    if(!materie) return;
+
+    const btn = document.getElementById("addOrarBtn");
+    btn.disabled = true;
+    const newOrar = {...currentData.orar};
+    newOrar[zi] = (newOrar[zi] || []).concat([{ora, materie, prof}]);
+    const ok = await commit({...currentData, orar: newOrar}, "Adăugat în orar.");
+    btn.disabled = false;
+    if(ok){
+      document.getElementById("fMaterie").value = "";
+      document.getElementById("fProf").value = "";
+    }
+  });
+
+  // ---------- VACANTE ----------
+  function isVacationActive(v, key){
+    return key >= v.inceput && key <= v.sfarsit;
+  }
+
+  function renderVacante(){
+    const list = document.getElementById("vacList");
+    const badgeWrap = document.getElementById("vacBadgeWrap");
+    list.innerHTML = "";
+    badgeWrap.innerHTML = "";
+    const vac = currentData.vacante || [];
+
+    const tKey = todayKey();
+    const activeNow = vac.find(v => isVacationActive(v, tKey));
+    if(activeNow){
+      badgeWrap.innerHTML = `<div class="vac-badge">În acest moment: vacanță activă (${activeNow.nume || "fără nume"}) — orarul e ascuns pe tabletă</div>`;
+    }
+
+    if(vac.length === 0){
+      list.innerHTML = '<div class="empty-note">Nicio vacanță adăugată.</div>';
+      return;
+    }
+
+    const box = document.createElement("div");
+    box.className = "glass";
+
+    vac.slice().sort((a,b) => a.inceput.localeCompare(b.inceput)).forEach((v) => {
+      const realIdx = currentData.vacante.indexOf(v);
+      const row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML = `
+        <div class="rx">
+          <strong>${v.nume || "Vacanță"}</strong>
+          <div class="sub2">${fmtDateKey(v.inceput)} – ${fmtDateKey(v.sfarsit)}</div>
+        </div>
+        <button class="del" title="Șterge">✕</button>
+      `;
+      row.querySelector(".del").addEventListener("click", () => {
+        const newVac = currentData.vacante.filter((_, i) => i !== realIdx);
+        commit({...currentData, vacante: newVac}, "Vacanță ștearsă.");
+      });
+      box.appendChild(row);
+    });
+
+    list.appendChild(box);
+  }
+
+  document.getElementById("vacantaForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const inceput = document.getElementById("fVacInceput").value;
+    const sfarsit = document.getElementById("fVacSfarsit").value;
+    const nume = document.getElementById("fVacNume").value.trim();
+    if(!inceput || !sfarsit) return;
+
+    const btn = document.getElementById("addVacBtn");
+    btn.disabled = true;
+    const newVac = (currentData.vacante || []).concat([{inceput, sfarsit, nume}]);
+    const ok = await commit({...currentData, vacante: newVac}, "Vacanță adăugată.");
+    btn.disabled = false;
+    if(ok){
+      document.getElementById("fVacNume").value = "";
+    }
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    const ta = document.getElementById("fallbackText");
+    ta.select();
+    document.execCommand("copy");
+    setStatus("Copiat în clipboard.", "ok");
+  });
+
+  // ---------- INITIALIZARE FORMULARE ----------
+  function fillHourMinuteSelects(selH, selM, stepMinutes){
+    for(let h=0; h<24; h++){
+      const opt = document.createElement("option");
+      opt.value = String(h).padStart(2,"0");
+      opt.textContent = String(h).padStart(2,"0");
+      selH.appendChild(opt);
+    }
+    for(let m=0; m<60; m+=stepMinutes){
+      const opt = document.createElement("option");
+      opt.value = String(m).padStart(2,"0");
+      opt.textContent = String(m).padStart(2,"0");
+      selM.appendChild(opt);
+    }
+  }
+
+  const today = new Date();
+  document.getElementById("fData").value = today.toISOString().slice(0,10);
+
+  fillHourMinuteSelects(document.getElementById("fOraH"), document.getElementById("fOraM"), 5);
+  document.getElementById("fOraH").value = String(today.getHours()).padStart(2,"0");
+  document.getElementById("fOraM").value = String(Math.round(today.getMinutes()/5)*5 % 60).padStart(2,"0");
+
+  fillHourMinuteSelects(document.getElementById("fStartH"), document.getElementById("fStartM"), 5);
+  fillHourMinuteSelects(document.getElementById("fEndH"), document.getElementById("fEndM"), 5);
+  document.getElementById("fStartH").value = "08";
+  document.getElementById("fEndH").value = "09";
+
+  loadData();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "tasks": [],
+  "orar": {
+    "1": [
+      {"ora":"12:30 - 13:20", "materie":"Matematică", "prof":"Zaharia Elena"},
+      {"ora":"13:30 - 14:20", "materie":"Opțional Spaniolă", "prof":"Gavrila Adelina"},
+      {"ora":"14:30 - 15:20", "materie":"Dirigenție", "prof":"Ionescu Ionela"},
+      {"ora":"15:30 - 16:20", "materie":"Matematică", "prof":"Zaharia Elena"},
+      {"ora":"16:30 - 17:20", "materie":"Geografie", "prof":"Lazăr Iancu"}
+    ],
+    "2": [
+      {"ora":"12:30 - 13:20", "materie":"Matematică", "prof":"Zaharia Elena"},
+      {"ora":"13:30 - 14:20", "materie":"Ed. Fizică", "prof":"Ilie Sebastian"},
+      {"ora":"14:30 - 15:20", "materie":"Română", "prof":"Ionescu Ionela"},
+      {"ora":"15:30 - 16:20", "materie":"Istorie", "prof":"Marin Cristina"},
+      {"ora":"16:30 - 17:20", "materie":"TIC", "prof":"Chiriță Nicoleta"},
+      {"ora":"17:30 - 18:20", "materie":"Engleză", "prof":"Linca Sorina"}
+    ],
+    "3": [
+      {"ora":"13:30 - 14:20", "materie":"Educație Socială", "prof":"Pîrvulescu Oana"},
+      {"ora":"14:30 - 15:20", "materie":"Română", "prof":"Ionescu Ionela"},
+      {"ora":"15:30 - 16:20", "materie":"Engleză", "prof":"Linca Sorina"},
+      {"ora":"16:30 - 17:20", "materie":"Tehnologie", "prof":"Andrei Simona"},
+      {"ora":"17:30 - 18:20", "materie":"Ed. Muzicală", "prof":"Tănase Ingrid"}
+    ],
+    "4": [
+      {"ora":"12:30 - 13:20", "materie":"Biologie", "prof":"Sin Raluca"},
+      {"ora":"13:30 - 14:20", "materie":"Spaniolă", "prof":"Gavrila Adelina"},
+      {"ora":"14:30 - 15:20", "materie":"Ed. Fizică", "prof":"Ilie Sebastian"},
+      {"ora":"15:30 - 16:20", "materie":"Istorie", "prof":"Marin Cristina"},
+      {"ora":"16:30 - 17:20", "materie":"Română", "prof":"Ionescu Ionela"}
+    ],
+    "5": [
+      {"ora":"12:30 - 13:20", "materie":"Matematică", "prof":"Zaharia Elena"},
+      {"ora":"13:30 - 14:20", "materie":"Română", "prof":"Ionescu Ionela"},
+      {"ora":"14:30 - 15:20", "materie":"Religie", "prof":"Vulpe Alina"},
+      {"ora":"15:30 - 16:20", "materie":"Spaniolă", "prof":"Gavrila Adelina"},
+      {"ora":"16:30 - 17:20", "materie":"Ed. Plastică", "prof":"Nițescu Mihaela"}
+    ]
+  },
+  "vacante": []
+}
