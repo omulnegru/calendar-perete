@@ -11,11 +11,6 @@
       "sarcina": "MATEMANIA"
     },
     {
-      "data": "2026-09-25",
-      "ora": "17:25",
-      "sarcina": "SEDINTA CU PARINTII"
-    },
-    {
       "data": "2026-10-03",
       "ora": "11:30",
       "sarcina": "MATEMANIA"
@@ -140,12 +135,12 @@
     "1": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "Religie",
+        "materie": "Dirigentie",
         "prof": ""
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "Tehnologie",
+        "materie": "Spaniola",
         "prof": ""
       },
       {
@@ -155,17 +150,17 @@
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Optional Spaniola",
+        "materie": "Matematica",
         "prof": ""
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "Tic",
+        "materie": "Ed. Sociala",
         "prof": ""
       },
       {
         "ora": "17:30 - 18:20",
-        "materie": "Ed. Muzicala",
+        "materie": "Engleza",
         "prof": ""
       }
     ],
@@ -177,12 +172,12 @@
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Matematica",
+        "materie": "Romana",
         "prof": ""
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Engleza",
+        "materie": "Ed. Fizica",
         "prof": ""
       },
       {
@@ -192,7 +187,7 @@
       },
       {
         "ora": "17:30 - 18:20",
-        "materie": "Ed. Fizica",
+        "materie": "Geografie",
         "prof": ""
       }
     ],
@@ -204,12 +199,12 @@
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "Engleza",
+        "materie": "Romana",
         "prof": ""
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Spaniola",
+        "materie": "Matematica",
         "prof": ""
       },
       {
@@ -219,41 +214,14 @@
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "Geografie",
+        "materie": "Religie",
         "prof": ""
       }
     ],
     "4": [
       {
-        "ora": "13:30 - 14:20",
-        "materie": "Spaniola",
-        "prof": ""
-      },
-      {
-        "ora": "14:30 - 15:20",
-        "materie": "Romana",
-        "prof": ""
-      },
-      {
-        "ora": "15:30 - 16:20",
-        "materie": "Matematica",
-        "prof": ""
-      },
-      {
-        "ora": "16:30 - 17:20",
-        "materie": "Dirigentie",
-        "prof": ""
-      },
-      {
-        "ora": "17:30 - 18:20",
-        "materie": "Istorie",
-        "prof": ""
-      }
-    ],
-    "5": [
-      {
         "ora": "12:30 - 13:20",
-        "materie": "Romana",
+        "materie": "Spaniola",
         "prof": ""
       },
       {
@@ -263,17 +231,44 @@
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Matematica",
+        "materie": "Istorie",
         "prof": ""
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Educatie Sociala",
+        "materie": "Engleza",
         "prof": ""
       },
       {
         "ora": "16:30 - 17:20",
+        "materie": "Ed. Muzicala",
+        "prof": ""
+      }
+    ],
+    "5": [
+      {
+        "ora": "12:30 - 13:20",
+        "materie": "Optional Spaniola",
+        "prof": ""
+      },
+      {
+        "ora": "13:30 - 14:20",
+        "materie": "Matematica",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
         "materie": "Romana",
+        "prof": ""
+      },
+      {
+        "ora": "15:30 - 16:20",
+        "materie": "Tehnologie",
+        "prof": ""
+      },
+      {
+        "ora": "16:30 - 17:20",
+        "materie": "TIC",
         "prof": ""
       }
     ]
