@@ -134,50 +134,18 @@
   "orar": {
     "1": [
       {
-        "ora": "12:30 - 13:20",
-        "materie": "Dirigentie",
+        "ora": "13:30 - 14:20",
+        "materie": "Tehnologie",
         "prof": ""
       },
       {
-        "ora": "13:30 - 14:20",
+        "ora": "14:30 - 15:20",
         "materie": "Spaniola",
         "prof": ""
       },
       {
-        "ora": "14:30 - 15:20",
-        "materie": "Ed. Fizica",
-        "prof": ""
-      },
-      {
         "ora": "15:30 - 16:20",
-        "materie": "Matematica",
-        "prof": ""
-      },
-      {
-        "ora": "16:30 - 17:20",
-        "materie": "Ed. Sociala",
-        "prof": ""
-      },
-      {
-        "ora": "17:30 - 18:20",
-        "materie": "Engleza",
-        "prof": ""
-      }
-    ],
-    "2": [
-      {
-        "ora": "13:30 - 14:20",
-        "materie": "Romana",
-        "prof": ""
-      },
-      {
-        "ora": "14:30 - 15:20",
-        "materie": "Romana",
-        "prof": ""
-      },
-      {
-        "ora": "15:30 - 16:20",
-        "materie": "Ed. Fizica",
+        "materie": "Biologie",
         "prof": ""
       },
       {
@@ -187,56 +155,61 @@
       },
       {
         "ora": "17:30 - 18:20",
+        "materie": "Tic",
+        "prof": ""
+      }
+    ],
+    "2": [
+      {
+        "ora": "12:30 - 13:20",
+        "materie": "Spaniola",
+        "prof": ""
+      },
+      {
+        "ora": "13:30 - 14:20",
+        "materie": "Matematica",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
+        "materie": "Romana",
+        "prof": ""
+      },
+      {
+        "ora": "15:30 - 16:20",
         "materie": "Geografie",
+        "prof": ""
+      },
+      {
+        "ora": "16:30 - 17:20",
+        "materie": "Romana",
+        "prof": ""
+      },
+      {
+        "ora": "17:30 - 18:20",
+        "materie": "Dirigentie",
         "prof": ""
       }
     ],
     "3": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "Matematica",
+        "materie": "Ed. Fizica",
         "prof": ""
       },
       {
         "ora": "13:30 - 14:20",
+        "materie": "Matematica",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
         "materie": "Romana",
         "prof": ""
       },
       {
-        "ora": "14:30 - 15:20",
-        "materie": "Matematica",
-        "prof": ""
-      },
-      {
         "ora": "15:30 - 16:20",
-        "materie": "Ed. Plastica",
-        "prof": ""
-      },
-      {
-        "ora": "16:30 - 17:20",
-        "materie": "Religie",
-        "prof": ""
-      }
-    ],
-    "4": [
-      {
-        "ora": "12:30 - 13:20",
-        "materie": "Spaniola",
-        "prof": ""
-      },
-      {
-        "ora": "13:30 - 14:20",
-        "materie": "Biologie",
-        "prof": ""
-      },
-      {
-        "ora": "14:30 - 15:20",
-        "materie": "Istorie",
-        "prof": ""
-      },
-      {
-        "ora": "15:30 - 16:20",
-        "materie": "Engleza",
+        "materie": "Ed. Sociala",
         "prof": ""
       },
       {
@@ -245,30 +218,57 @@
         "prof": ""
       }
     ],
-    "5": [
+    "4": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "Optional Spaniola",
+        "materie": "Religie",
         "prof": ""
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "Matematica",
+        "materie": "Istorie",
         "prof": ""
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Romana",
+        "materie": "Engleza",
         "prof": ""
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Tehnologie",
+        "materie": "Matematica",
         "prof": ""
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "TIC",
+        "materie": "Romana",
+        "prof": ""
+      }
+    ],
+    "5": [
+      {
+        "ora": "12:30 - 13:20",
+        "materie": "Matematica",
+        "prof": ""
+      },
+      {
+        "ora": "13:30 - 14:20",
+        "materie": "Engleza",
+        "prof": ""
+      },
+      {
+        "ora": "14:30 - 15:20",
+        "materie": "Opt. Spaniola",
+        "prof": ""
+      },
+      {
+        "ora": "15:30 - 16:20",
+        "materie": "Ed. Fizica",
+        "prof": ""
+      },
+      {
+        "ora": "16:30 - 17:20",
+        "materie": "Ed. Plastica",
         "prof": ""
       }
     ]
