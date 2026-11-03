@@ -1,31 +1,6 @@
 {
   "tasks": [
     {
-      "data": "2026-09-29",
-      "ora": "19:00",
-      "sarcina": "ENGLEZA"
-    },
-    {
-      "data": "2026-10-06",
-      "ora": "19:00",
-      "sarcina": "ENGLEZA"
-    },
-    {
-      "data": "2026-10-13",
-      "ora": "19:00",
-      "sarcina": "ENGLEZA"
-    },
-    {
-      "data": "2026-10-20",
-      "ora": "19:00",
-      "sarcina": "ENGLEZA"
-    },
-    {
-      "data": "2026-10-27",
-      "ora": "19:00",
-      "sarcina": "ENGLEZA"
-    },
-    {
       "data": "2026-11-03",
       "ora": "19:00",
       "sarcina": "ENGLEZA"
@@ -64,146 +39,226 @@
       "data": "2026-12-22",
       "ora": "19:00",
       "sarcina": "ENGLEZA"
+    },
+    {
+      "data": "2026-11-07",
+      "ora": "11:30",
+      "sarcina": "Matematica"
+    },
+    {
+      "data": "2026-11-14",
+      "ora": "11:30",
+      "sarcina": "MATEMATICA"
+    },
+    {
+      "data": "2026-11-21",
+      "ora": "11:30",
+      "sarcina": "MATEMATICA"
+    },
+    {
+      "data": "2026-11-28",
+      "ora": "11:30",
+      "sarcina": "MATEMATICA"
+    },
+    {
+      "data": "2026-12-05",
+      "ora": "11:30",
+      "sarcina": "MATEMATICA"
+    },
+    {
+      "data": "2026-12-12",
+      "ora": "11:30",
+      "sarcina": "MATEMATICA"
+    },
+    {
+      "data": "2026-12-19",
+      "ora": "11:30",
+      "sarcina": "MATEMATICA"
+    },
+    {
+      "data": "2026-12-26",
+      "ora": "11:30",
+      "sarcina": "MATEMATICA"
+    },
+    {
+      "data": "2026-11-08",
+      "ora": "12:45",
+      "sarcina": "SPANIOLA"
+    },
+    {
+      "data": "2026-11-15",
+      "ora": "12:45",
+      "sarcina": "SPANIOLA"
+    },
+    {
+      "data": "2026-11-22",
+      "ora": "12:45",
+      "sarcina": "SPANIOLA"
+    },
+    {
+      "data": "2026-11-29",
+      "ora": "12:45",
+      "sarcina": "SPANIOLA"
+    },
+    {
+      "data": "2026-12-06",
+      "ora": "12:45",
+      "sarcina": "SPANIOLA"
+    },
+    {
+      "data": "2026-12-13",
+      "ora": "12:45",
+      "sarcina": "SPANIOLA"
+    },
+    {
+      "data": "2026-12-20",
+      "ora": "12:45",
+      "sarcina": "SPANIOLA"
+    },
+    {
+      "data": "2026-12-27",
+      "ora": "12:45",
+      "sarcina": "SPANIOLA"
     }
   ],
   "orar": {
     "1": [
       {
+        "ora": "12:30 - 13:20",
+        "materie": "ROMANA",
+        "prof": ""
+      },
+      {
         "ora": "13:30 - 14:20",
-        "materie": "Tehnologie",
+        "materie": "RELIGIE",
         "prof": ""
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Spaniola",
+        "materie": "MATEMATICA",
         "prof": ""
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Biologie",
+        "materie": "SPANIOLA",
         "prof": ""
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "Istorie",
-        "prof": ""
-      },
-      {
-        "ora": "17:30 - 18:20",
-        "materie": "Tic",
+        "materie": "ED. MUZICALA",
         "prof": ""
       }
     ],
     "2": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "Spaniola",
+        "materie": "SPANIOLA",
         "prof": ""
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "Matematica",
+        "materie": "ED. FIZICA",
         "prof": ""
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Romana",
+        "materie": "BIOLOGIE",
         "prof": ""
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Geografie",
+        "materie": "OPTIONAL SPANIOLA",
         "prof": ""
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "Romana",
-        "prof": ""
-      },
-      {
-        "ora": "17:30 - 18:20",
-        "materie": "Dirigentie",
+        "materie": "ROMANA",
         "prof": ""
       }
     ],
     "3": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "Ed. Fizica",
+        "materie": "ED. SOCIALA",
         "prof": ""
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "Matematica",
+        "materie": "ROMANA",
         "prof": ""
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Romana",
+        "materie": "ED. FIZICA",
         "prof": ""
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Ed. Sociala",
+        "materie": "DIRIGENTIE",
         "prof": ""
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "Ed. Muzicala",
+        "materie": "ED. PLASTICA",
+        "prof": ""
+      },
+      {
+        "ora": "17:30 - 18:20",
+        "materie": "TIC",
         "prof": ""
       }
     ],
     "4": [
       {
-        "ora": "12:30 - 13:20",
-        "materie": "Religie",
-        "prof": ""
-      },
-      {
         "ora": "13:30 - 14:20",
-        "materie": "Istorie",
+        "materie": "TEHNOLOGIE",
         "prof": ""
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Engleza",
+        "materie": "ISTORIE",
         "prof": ""
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Matematica",
+        "materie": "GEOGRAFIE",
         "prof": ""
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "Romana",
+        "materie": "MATEMATICA",
+        "prof": ""
+      },
+      {
+        "ora": "17:30 - 18:20",
+        "materie": "ENGLEZA",
         "prof": ""
       }
     ],
     "5": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "Matematica",
+        "materie": "MATEMATICA",
         "prof": ""
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "Engleza",
+        "materie": "ROMANA",
         "prof": ""
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "Opt. Spaniola",
+        "materie": "ISTORIE",
         "prof": ""
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "Ed. Fizica",
+        "materie": "MATEMATICA",
         "prof": ""
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "Ed. Plastica",
+        "materie": "ENGLEZA",
         "prof": ""
       }
     ]

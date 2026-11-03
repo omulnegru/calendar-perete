@@ -165,6 +165,61 @@
   }
   .orar-btn:active{ transform: scale(0.95); }
 
+  /* ---- Orar saptamanal: grila cu cate o coloana pe zi ---- */
+  .week-grid{
+    display:grid;
+    gap: 14px;
+    padding-top: 14px;
+    height: 100%;
+    align-content: start;
+  }
+  .week-col{
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 12px 12px 8px 12px;
+    min-width: 0;
+  }
+  .week-col.today{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent) inset;
+  }
+  .week-col .wc-head{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+    color: var(--text-1);
+  }
+  .week-col.today .wc-head{ color: var(--accent); }
+  .week-col .wc-item{
+    padding: 7px 0;
+    border-top: 1px solid var(--line);
+  }
+  .week-col .wc-time{
+    font-size: 0.78rem;
+    color: var(--text-2);
+    font-variant-numeric: tabular-nums;
+    font-weight:500;
+  }
+  .week-col .wc-subj{
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-1);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .week-col .wc-item.curs{
+    border-left: 3px solid var(--accent);
+    padding-left: 8px;
+    margin-left: -2px;
+  }
+  .week-col .wc-item.curs .wc-subj{ color: var(--accent); }
+  .week-col .wc-prof{
+    font-size: 0.75rem;
+    color: var(--text-2);
+  }
+
   .today-header .clock{
     font-variant-numeric: tabular-nums;
     font-size: clamp(1.4rem, 2.4vw, 2.1rem);
@@ -483,7 +538,8 @@
       <div class="day-name" id="dayName">—</div>
       <div class="day-date" id="dayDate">—</div>
       <div class="header-right">
-        <button id="orarBtn" class="orar-btn">Orar Școlar</button>
+        <button id="orarBtn" class="orar-btn">Orar azi</button>
+        <button id="orarWeekBtn" class="orar-btn">Orar săptămânal</button>
         <div class="clock" id="clock">--:--</div>
       </div>
     </div>
@@ -673,7 +729,9 @@
     document.getElementById("clock").textContent = pad(now.getHours()) + ":" + pad(now.getMinutes());
 
     // ascunde butonul de Orar automat, daca azi cade intr-o perioada de vacanta
-    document.getElementById("orarBtn").style.display = isVacationOn(dateKey(now)) ? "none" : "";
+    const vacantaAzi = isVacationOn(dateKey(now));
+    document.getElementById("orarBtn").style.display = vacantaAzi ? "none" : "";
+    document.getElementById("orarWeekBtn").style.display = vacantaAzi ? "none" : "";
 
     // ---- Agenda pentru azi ----
     const agenda = document.getElementById("agenda");
@@ -809,7 +867,7 @@
     const now = new Date();
     const periods = ORAR[now.getDay()] || [];
 
-    document.getElementById("previewName").textContent = "Orar Școlar";
+    document.getElementById("previewName").textContent = "Orar azi";
     document.getElementById("previewDate").textContent = dayNames[now.getDay()];
     const body = document.getElementById("previewBody");
     body.innerHTML = "";
@@ -831,7 +889,62 @@
     runPreviewAnimation(startRect);
   }
 
-  function runPreviewAnimation(startRect){
+  document.getElementById("orarWeekBtn").addEventListener("click", openOrarWeekPreview);
+
+  function openOrarWeekPreview(){
+    if(isOpen) return;
+    isOpen = true;
+    clearTimeout(closeTimeoutId);
+
+    const btn = document.getElementById("orarWeekBtn");
+    const startRect = btn.getBoundingClientRect();
+    const now = new Date();
+    const today = now.getDay();
+
+    // data fiecarei zile din saptamana curenta (luni -> duminica)
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - ((today + 6) % 7));
+    const dateOf = z => { const d = new Date(monday); d.setDate(monday.getDate() + ((z + 6) % 7)); return d; };
+    // cursurile separate (Engleza, Matematica etc.) din lista de sarcini
+    const cursuriFor = z => (taskStore[dateKey(dateOf(z))] || []);
+
+    // Luni-Vineri mereu; Sambata/Duminica doar daca au ore sau cursuri
+    const zile = [1,2,3,4,5];
+    [6,0].forEach(z => { if((ORAR[z] || []).length || cursuriFor(z).length) zile.push(z); });
+
+    document.getElementById("previewName").textContent = "Orar săptămânal";
+    document.getElementById("previewDate").textContent = "";
+    const body = document.getElementById("previewBody");
+    body.innerHTML = "";
+
+    const grid = document.createElement("div");
+    grid.className = "week-grid";
+    grid.style.gridTemplateColumns = `repeat(${zile.length}, minmax(0, 1fr))`;
+
+    zile.forEach(z => {
+      const col = document.createElement("div");
+      col.className = "week-col" + (z === today ? " today" : "");
+      const entries = [
+        ...(ORAR[z] || []).map(p => ({ start: String(p.ora).split(" - ")[0].trim(), ora: p.ora, materie: p.materie, prof: p.prof, curs: false })),
+        ...cursuriFor(z).map(t => ({ start: t.t, ora: t.t, materie: t.x, prof: "", curs: true }))
+      ].sort((a,b) => minutesOf(a.start) - minutesOf(b.start));
+      const items = entries.length
+        ? entries.map(p => `
+            <div class="wc-item${p.curs ? " curs" : ""}">
+              <div class="wc-time">${p.ora}</div>
+              <div class="wc-subj">${p.materie}</div>
+              ${p.prof ? `<div class="wc-prof">${p.prof}</div>` : ""}
+            </div>`).join("")
+        : '<div class="wc-item"><div class="wc-prof">Fără ore</div></div>';
+      col.innerHTML = `<div class="wc-head">${dayNames[z]}<div class="wc-prof" style="font-family:'Inter',sans-serif; margin-top:2px;">${fmtDate(dateOf(z))}</div></div>${items}`;
+      grid.appendChild(col);
+    });
+    body.appendChild(grid);
+
+    runPreviewAnimation(startRect, 15000); // mai mult timp de citit pentru toata saptamana
+  }
+
+  function runPreviewAnimation(startRect, durationMs = 6000){
     panel.style.transition = "none";
     panel.style.top = startRect.top + "px";
     panel.style.left = startRect.left + "px";
@@ -844,6 +957,7 @@
     document.querySelector(".preview-header").style.opacity = "0";
     timerBar.classList.remove("run");
     timerBar.style.transform = "scaleX(1)";
+    timerBar.style.animationDuration = (durationMs/1000) + "s";
 
     backdrop.classList.add("show");
 
@@ -867,7 +981,7 @@
       }, 180);
     });
 
-    closeTimeoutId = setTimeout(() => closeDayPreview(startRect), 6000);
+    closeTimeoutId = setTimeout(() => closeDayPreview(startRect), durationMs);
   }
 
   function closeDayPreview(startRect){
