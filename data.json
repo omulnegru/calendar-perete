@@ -125,141 +125,141 @@
     "1": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "ROMANA",
-        "prof": ""
+        "materie": "MATEMATICA",
+        "prof": "Zaharia Elena"
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "RELIGIE",
-        "prof": ""
+        "materie": "SPANIOLA",
+        "prof": "Gavrila Adelina"
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "MATEMATICA",
-        "prof": ""
+        "materie": "ROMANA",
+        "prof": "Ionescu Ionela"
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "SPANIOLA",
-        "prof": ""
+        "materie": "ROMANA",
+        "prof": "Ionescu Ionela"
       },
       {
         "ora": "16:30 - 17:20",
+        "materie": "GEOGRAFIE",
+        "prof": "Lazar Iancu"
+      },
+      {
+        "ora": "17:30 - 18:20",
         "materie": "ED. MUZICALA",
-        "prof": ""
+        "prof": "Tanase Ingrid"
       }
     ],
     "2": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "SPANIOLA",
-        "prof": ""
+        "materie": "ED. FIZICA",
+        "prof": "Ilie Sebastian"
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "ED. FIZICA",
-        "prof": ""
+        "materie": "ISTORIE",
+        "prof": "Marin Cristina"
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "BIOLOGIE",
-        "prof": ""
+        "materie": "ENGLEZA",
+        "prof": "Linca Sorina"
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "OPTIONAL SPANIOLA",
-        "prof": ""
+        "materie": "BIOLOGIE",
+        "prof": "Sin Raluca"
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "ROMANA",
-        "prof": ""
+        "materie": "TIC",
+        "prof": "Chirita Nicoleta"
       }
     ],
     "3": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "ED. SOCIALA",
-        "prof": ""
+        "materie": "MATEMATICA",
+        "prof": "Zaharia Elena"
       },
       {
         "ora": "13:30 - 14:20",
         "materie": "ROMANA",
-        "prof": ""
+        "prof": "Ionescu Ionela"
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "ED. FIZICA",
-        "prof": ""
+        "materie": "OPTIONAL SPANIOLA",
+        "prof": "Gavrila Adelina"
       },
       {
         "ora": "15:30 - 16:20",
         "materie": "DIRIGENTIE",
-        "prof": ""
+        "prof": "Ionescu Ionela"
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "ED. PLASTICA",
-        "prof": ""
-      },
-      {
-        "ora": "17:30 - 18:20",
-        "materie": "TIC",
-        "prof": ""
+        "materie": "ED. FIZICA",
+        "prof": "Ilie Sebastian"
       }
     ],
     "4": [
       {
         "ora": "13:30 - 14:20",
-        "materie": "TEHNOLOGIE",
-        "prof": ""
+        "materie": "MATEMATICA",
+        "prof": "Zaharia Elena"
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "ISTORIE",
-        "prof": ""
+        "materie": "SPANIOLA",
+        "prof": "Gavrila Adelina"
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "GEOGRAFIE",
-        "prof": ""
+        "materie": "ENGLEZA",
+        "prof": "Linca Sorina"
       },
       {
         "ora": "16:30 - 17:20",
         "materie": "MATEMATICA",
-        "prof": ""
+        "prof": "Zaharia Elena"
       },
       {
         "ora": "17:30 - 18:20",
-        "materie": "ENGLEZA",
-        "prof": ""
+        "materie": "TEHNOLOGIE",
+        "prof": "Andrei Simona"
       }
     ],
     "5": [
       {
         "ora": "12:30 - 13:20",
-        "materie": "MATEMATICA",
-        "prof": ""
+        "materie": "RELIGIE",
+        "prof": "Vulpe Alina"
       },
       {
         "ora": "13:30 - 14:20",
-        "materie": "ROMANA",
-        "prof": ""
+        "materie": "ISTORIE",
+        "prof": "Marin Cristina"
       },
       {
         "ora": "14:30 - 15:20",
-        "materie": "ISTORIE",
-        "prof": ""
+        "materie": "ROMANA",
+        "prof": "Ionescu Ionela"
       },
       {
         "ora": "15:30 - 16:20",
-        "materie": "MATEMATICA",
-        "prof": ""
+        "materie": "ED. PLASTICA",
+        "prof": "Nitescu Mihaela"
       },
       {
         "ora": "16:30 - 17:20",
-        "materie": "ENGLEZA",
-        "prof": ""
+        "materie": "EDUCATIE SOCIALA",
+        "prof": "Pirvulescu Oana"
       }
     ]
   },
